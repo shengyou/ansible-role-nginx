@@ -1,0 +1,50 @@
+---
+
+- name: install nginx
+  package:
+    name: nginx
+    state: present
+    update_cache: yes
+  tags:
+    - install
+
+- name: setup nginx
+  block:
+    - name: set nginx.conf (custom)
+      copy:
+        src: "{{ custom_nginx_conf }}"
+        backup: yes
+        dest: /etc/nginx/nginx.conf
+        group: root
+        owner: root
+        mode: 0644
+      when: custom_nginx_conf is defined
+
+    - name: set site config (custom)
+      copy:
+        src: "{{ item.src }}/{{ item.filename }}"
+        backup: yes
+        dest: "/etc/nginx/sites-available/{{ item.filename }}"
+        group: root
+        owner: root
+        mode: 0644
+      with_items:
+        - "{{ custom_site_conf }}"
+      notify: restart_nginx
+      when: custom_site_conf is defined
+
+    - name: "Create nginx sites-enabled link | {{ item.filename }}"
+      file:
+        src: "/etc/nginx/sites-available/{{ item.filename }}"
+        dest: "/etc/nginx/sites-enabled/{{ item.filename }}"
+        owner: root
+        group: root
+        state: link
+      with_items:
+        - "{{ custom_site_conf }}"
+      notify: restart_nginx
+      when: custom_site_conf is defined
+
+  become: yes
+  tags:
+    - setup
