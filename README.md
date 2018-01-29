@@ -1,4 +1,4 @@
-Install Nginx
+Install Nginx [![Build Status](https://travis-ci.org/shengyou/ansible-role-nginx.svg?branch=master)](https://travis-ci.org/shengyou/ansible-role-nginx)
 =========
 
 安裝 Nginx。
