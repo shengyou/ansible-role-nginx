@@ -22,7 +22,7 @@ script:
   - ${PWD}/tests/test.sh
 
   # my test code
-  - 'docker exec ${container_id} ls /usr/bin/nginx | grep "/usr/bin/nginx"'
+  - 'docker exec ${container_id} ls /usr/sbin/nginx | grep "/usr/sbin/nginx"'
 
 # notifications:
   # webhooks: https://galaxy.ansible.com/api/v1/notifications/
