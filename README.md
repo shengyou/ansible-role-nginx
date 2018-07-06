@@ -35,7 +35,7 @@ Example Playbook
 ----------------
 
 ```
-- name: install_nginx.yml
+- name: ansible-role-nginx.yml
   hosts: myhost
   gather_facts: yes
   become: yes
@@ -43,14 +43,14 @@ Example Playbook
   vars:
    - custom_nginx_conf: /path/to/conf/filename.conf
 
-   - custom_site_conf::
+   - custom_site_conf:
        - src: /path/to/site_configs
          filename: site_config_filename.conf
        - src: /path/to/site_configs
          filename: site_config_filename.conf
 
   roles:
-    - install_nginx
+    - ansible-role-nginx
 ```
 
 License
