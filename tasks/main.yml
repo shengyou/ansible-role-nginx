@@ -10,3 +10,12 @@
   when: ansible_distribution == "Ubuntu" or ansible_distribution == "CentOS"
   tags:
     - setup
+
+- name: create /etc/nginx/auth
+  file:
+    path: "/etc/nginx/auth"
+    state: directory
+    owner: "root"
+    group: "root"
+    mode: 0755
+  become: yes
